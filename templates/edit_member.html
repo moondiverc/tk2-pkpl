@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Anggota</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='form.css') }}" />
+  </head>
+  <body>
+    <main class="form-page">
+      <section class="form-card">
+        <h1>Edit Data Anggota</h1>
+        <p>ID Anggota: {{ member.id }}</p>
+
+        <form method="POST">
+          <label for="nama">Nama</label>
+          <input
+            id="nama"
+            name="nama"
+            type="text"
+            value="{{ member.nama }}"
+            required />
+
+          <label for="npm">NPM</label>
+          <input
+            id="npm"
+            name="npm"
+            type="text"
+            value="{{ member.npm }}"
+            required />
+
+          <label for="jurusan">Jurusan</label>
+          <input
+            id="jurusan"
+            name="jurusan"
+            type="text"
+            value="{{ member.jurusan }}"
+            required />
+
+          <label for="angkatan">Angkatan</label>
+          <input
+            id="angkatan"
+            name="angkatan"
+            type="text"
+            value="{{ member.angkatan }}"
+            required />
+
+          <div class="actions">
+            <button type="submit">Simpan</button>
+            <a href="{{ url_for('index') }}">Batal</a>
+          </div>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

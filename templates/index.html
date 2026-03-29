@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Data Anggota Kelompok</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}" />
+    <style>
+      body {
+          background-color: {{ style.color }};
+          font-family: {{ style.font }};
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h2>Biodata Kelompok</h2>
+      {% if user %}
+      <div class="auth-box">
+        <p>
+          Halo, {{ user.name }}! ({{ "Anggota Kelompok" if is_member else
+          "Pengunjung" }})
+        </p>
+        <a class="btn-link" href="{{ url_for('logout') }}">Logout</a>
+      </div>
+      {% else %}
+      <a class="btn-link" href="{{ url_for('login') }}">Login with Google</a>
+      {% endif %}
+    </header>
+
+    <main>
+      <h1>List Anggota Kelompok</h1>
+
+      <section class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nama</th>
+              <th>NPM</th>
+              <th>Jurusan</th>
+              <th>Angkatan</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if members %} {% for member in members %}
+            <tr>
+              <td>{{ member['id'] }}</td>
+              <td>{{ member['nama'] }}</td>
+              <td>{{ member['npm'] }}</td>
+              <td>{{ member['jurusan'] }}</td>
+              <td>{{ member['angkatan'] }}</td>
+              <td>
+                {% if is_member %}
+                <a
+                  class="btn-small"
+                  href="{{ url_for('edit_member', member_id=member['id']) }}"
+                  >Edit</a
+                >
+                {% else %}
+                <span class="muted">Read Only</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %} {% else %}
+            <tr>
+              <td colspan="6" class="muted">Data anggota belum tersedia.</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </section>
+
+      {% if is_member %}
+      <section class="admin-panel">
+        <h3>Pengaturan Tampilan</h3>
+        <form action="{{ url_for('update_style') }}" method="POST">
+          <label>Warna Background:</label>
+          <input type="color" name="color" value="{{ style.color }}" />
+
+          <label>Jenis Font:</label>
+          <select name="font">
+            <option value="sans-serif">Sans Serif</option>
+            <option value="serif">Serif</option>
+            <option value="monospace">Monospace</option>
+          </select>
+          <button type="submit">Simpan Perubahan</button>
+        </form>
+      </section>
+      {% elif user %}
+      <p class="notice">
+        Anda login sebagai akun eksternal. Anda hanya bisa melihat data anggota
+        kelompok.
+      </p>
+      {% endif %}
+    </main>
+  </body>
+</html>
