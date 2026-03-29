@@ -17,7 +17,7 @@ MEMBER_EMAILS = [
     "hillyelizabeth06@gmail.com",
     "deldildolly@gmail.com",
     "zakiaraihanauni@gmail.com",
-    "teman4@ui.ac.id"
+    "qonitavidia@gmail.com"
 ]
 
 # data anggota kelompok (bisa diedit oleh anggota yang login)
