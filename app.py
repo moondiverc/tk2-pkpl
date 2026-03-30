@@ -5,13 +5,11 @@ from flask import Flask, render_template, session, redirect, url_for, request
 from oath_client import SimpleOAuth2Client
 from dotenv import load_dotenv
 
-# mengambil data dari file .env
 load_dotenv() 
 
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY")
 
-# list email anggota kelompok (Otorisasi: hanya email ini yang bisa login dan mengedit data anggota)
 MEMBER_EMAILS = [
     "nezzaluna10@gmail.com",
     "hillyelizabeth06@gmail.com",
@@ -20,7 +18,6 @@ MEMBER_EMAILS = [
     "qonitavidia@gmail.com"
 ]
 
-# data anggota kelompok (bisa diedit oleh anggota yang login)
 TEAM_MEMBERS = [
     {"id": 1, "nama": "Nezzaluna Azzahra", "npm": "2406495741", "jurusan": "Ilmu Komputer", "angkatan": "2024"},
     {"id": 2, "nama": "Hillary Elizabeth Clara Pasaribu", "npm": "2406407266", "jurusan": "Sistem Informasi", "angkatan": "2024"},
@@ -29,7 +26,6 @@ TEAM_MEMBERS = [
     {"id": 5, "nama": "Vidia Qonita Ahmad", "npm": "2406345381", "jurusan": "Ilmu Komputer", "angkatan": "2024"}
 ]
 
-# init OAuth Client
 oauth = SimpleOAuth2Client(
     client_id=os.getenv("GOOGLE_CLIENT_ID"),
     client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),
@@ -48,7 +44,6 @@ def get_member_by_id(member_id):
 
 @app.route('/')
 def index():
-    # mengambil data gaya dari session (default : biru & sans-serif)
     current_style = {
         'color': session.get('bg_color', '#f4f4f9'),
         'font': session.get('font_family', 'sans-serif')
@@ -92,13 +87,11 @@ def callback():
     user_info = oauth.make_api_request("https://www.googleapis.com/oauth2/v2/userinfo").json()
     
     session['user'] = user_info
-    # Mekanisme Otorisasi: cek apakah email user ada di daftar anggota
     session['is_member'] = user_info['email'] in MEMBER_EMAILS
     return redirect(url_for('index'))
 
 @app.route('/update-style', methods=['POST'])
 def update_style():
-    # Proteksi Otorisasi tambahan di server-side
     if session.get('is_member'):
         session['bg_color'] = request.form.get('color')
         session['font_family'] = request.form.get('font')
@@ -114,18 +107,26 @@ def edit_member(member_id):
     if not member:
         return "Data anggota tidak ditemukan.", 404
 
-    if request.method == 'POST':
-        #Validasi input dan update data anggota
-        try:
-            member['nama'] = str(request.form.get('nama', member['nama']).strip())
-            member['npm'] = int(request.form.get('npm', member.get('npm', '')).strip())
-            member['jurusan'] = int(request.form.get('jurusan', member['jurusan']).strip())
-            member['angkatan'] = str(request.form.get('angkatan', member['angkatan']).strip())
-        except ValueError:
-            return "Input tidak valid. Pastikan npm dan jurusan adalah angka.", 400
-        return redirect(url_for('index'))
+    error_message = None 
 
-    return render_template('edit_member.html', member=member)
+    if request.method == 'POST':
+        nama = request.form.get('nama', '').strip()
+        npm = request.form.get('npm', '').strip()
+        jurusan = request.form.get('jurusan', '').strip()
+        angkatan = request.form.get('angkatan', '').strip()
+
+        if not npm.isdigit():
+            error_message = "Input tidak valid. NPM harus berupa angka."
+        elif len(npm) != 10:
+            error_message = "Input tidak valid. Panjang NPM harus tepat 10 digit."
+        else:
+            member['nama'] = nama
+            member['npm'] = npm
+            member['jurusan'] = jurusan
+            member['angkatan'] = angkatan
+            return redirect(url_for('index'))
+
+    return render_template('edit_member.html', member=member, error=error_message)
 
 @app.route('/logout')
 def logout():

@@ -53,11 +53,13 @@ label {
   font-weight: 700;
 }
 
-input {
+input, select {
   padding: 10px 12px;
   border-radius: 10px;
   border: 1px solid var(--line);
   font-size: 1rem;
+  width: 100%;
+  background-color: white;
 }
 
 .actions {
