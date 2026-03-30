@@ -115,10 +115,14 @@ def edit_member(member_id):
         return "Data anggota tidak ditemukan.", 404
 
     if request.method == 'POST':
-        member['nama'] = request.form.get('nama', member['nama']).strip()
-        member['npm'] = request.form.get('npm', member.get('npm', '')).strip()
-        member['jurusan'] = request.form.get('jurusan', member['jurusan']).strip()
-        member['angkatan'] = request.form.get('angkatan', member['angkatan']).strip()
+        #Validasi input dan update data anggota
+        try:
+            member['nama'] = str(request.form.get('nama', member['nama']).strip())
+            member['npm'] = int(request.form.get('npm', member.get('npm', '')).strip())
+            member['jurusan'] = int(request.form.get('jurusan', member['jurusan']).strip())
+            member['angkatan'] = str(request.form.get('angkatan', member['angkatan']).strip())
+        except ValueError:
+            return "Input tidak valid. Pastikan npm dan jurusan adalah angka.", 400
         return redirect(url_for('index'))
 
     return render_template('edit_member.html', member=member)
