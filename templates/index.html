@@ -82,9 +82,39 @@
 
           <label>Jenis Font:</label>
           <select name="font">
-            <option value="sans-serif">Sans Serif</option>
-            <option value="serif">Serif</option>
-            <option value="monospace">Monospace</option>
+            <option
+              value="sans-serif"
+              {%
+              if
+              style.font=""
+              ="sans-serif"
+              %}selected{%
+              endif
+              %}>
+              Sans Serif
+            </option>
+            <option
+              value="serif"
+              {%
+              if
+              style.font=""
+              ="serif"
+              %}selected{%
+              endif
+              %}>
+              Serif
+            </option>
+            <option
+              value="monospace"
+              {%
+              if
+              style.font=""
+              ="monospace"
+              %}selected{%
+              endif
+              %}>
+              Monospace
+            </option>
           </select>
           <button type="submit">Simpan Perubahan</button>
         </form>

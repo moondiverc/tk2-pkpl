@@ -1,6 +1,7 @@
 import os
 import secrets
 import urllib.parse
+import re
 from flask import Flask, render_template, session, redirect, url_for, request
 from oath_client import SimpleOAuth2Client
 from dotenv import load_dotenv
@@ -26,6 +27,13 @@ TEAM_MEMBERS = [
     {"id": 5, "nama": "Vidia Qonita Ahmad", "npm": "2406345381", "jurusan": "Ilmu Komputer", "angkatan": "2024"}
 ]
 
+DISPLAY_STYLE = {
+    "color": "#f4f4f9",
+    "font": "sans-serif"
+}
+
+ALLOWED_FONTS = {"sans-serif", "serif", "monospace"}
+
 oauth = SimpleOAuth2Client(
     client_id=os.getenv("GOOGLE_CLIENT_ID"),
     client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),
@@ -44,14 +52,10 @@ def get_member_by_id(member_id):
 
 @app.route('/')
 def index():
-    current_style = {
-        'color': session.get('bg_color', '#f4f4f9'),
-        'font': session.get('font_family', 'sans-serif')
-    }
     return render_template('index.html', 
                            user=session.get('user'), 
                            is_member=session.get('is_member'),
-                           style=current_style,
+                           style=DISPLAY_STYLE,
                            members=TEAM_MEMBERS)
 
 @app.route('/login')
@@ -93,8 +97,13 @@ def callback():
 @app.route('/update-style', methods=['POST'])
 def update_style():
     if session.get('is_member'):
-        session['bg_color'] = request.form.get('color')
-        session['font_family'] = request.form.get('font')
+        color = (request.form.get('color') or '').strip()
+        font = (request.form.get('font') or '').strip()
+
+        if re.fullmatch(r"#[0-9a-fA-F]{6}", color):
+            DISPLAY_STYLE['color'] = color
+        if font in ALLOWED_FONTS:
+            DISPLAY_STYLE['font'] = font
     return redirect(url_for('index'))
 
 
