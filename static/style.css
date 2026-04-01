@@ -60,7 +60,8 @@ td {
 }
 
 th {
-  background: #f2fbf9;
+  background: #f3f4f6;
+  color: #374151;
   font-weight: 700;
 }
 
@@ -69,7 +70,7 @@ th {
 button {
   cursor: pointer;
   background: var(--accent);
-  color: white;
+  color: var(--btn-text, white);
   border: none;
   padding: 8px 12px;
   border-radius: 8px;

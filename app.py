@@ -34,6 +34,41 @@ DISPLAY_STYLE = {
 
 ALLOWED_FONTS = {"sans-serif", "serif", "monospace"}
 
+
+def hex_to_rgb(hex_color):
+    hex_color = hex_color.lstrip('#')
+    return tuple(int(hex_color[i:i + 2], 16) for i in (0, 2, 4))
+
+
+def rgb_to_hex(rgb):
+    r, g, b = rgb
+    return f"#{r:02x}{g:02x}{b:02x}"
+
+
+def mix_with_black(hex_color, amount):
+    r, g, b = hex_to_rgb(hex_color)
+    r = max(0, min(255, int(r * (1 - amount))))
+    g = max(0, min(255, int(g * (1 - amount))))
+    b = max(0, min(255, int(b * (1 - amount))))
+    return rgb_to_hex((r, g, b))
+
+
+def get_text_color_for_bg(hex_color):
+    r, g, b = hex_to_rgb(hex_color)
+    luminance = (0.299 * r + 0.587 * g + 0.114 * b)
+    return "#111111" if luminance > 160 else "#ffffff"
+
+
+def get_ui_palette(bg_color):
+    button_color = mix_with_black(bg_color, 0.25)
+    button_hover = mix_with_black(bg_color, 0.4)
+    button_text = get_text_color_for_bg(button_color)
+    return {
+        "button_color": button_color,
+        "button_hover": button_hover,
+        "button_text": button_text,
+    }
+
 oauth = SimpleOAuth2Client(
     client_id=os.getenv("GOOGLE_CLIENT_ID"),
     client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),
@@ -52,10 +87,12 @@ def get_member_by_id(member_id):
 
 @app.route('/')
 def index():
+    palette = get_ui_palette(DISPLAY_STYLE['color'])
     return render_template('index.html', 
                            user=session.get('user'), 
                            is_member=session.get('is_member'),
                            style=DISPLAY_STYLE,
+                           palette=palette,
                            members=TEAM_MEMBERS)
 
 @app.route('/login')
