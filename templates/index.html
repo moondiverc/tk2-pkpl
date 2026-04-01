@@ -82,37 +82,13 @@
 
           <label>Jenis Font:</label>
           <select name="font">
-            <option
-              value="sans-serif"
-              {%
-              if
-              style.font=""
-              ="sans-serif"
-              %}selected{%
-              endif
-              %}>
+            <option value="sans-serif" {{ 'selected' if style.font == 'sans-serif' else '' }}>
               Sans Serif
             </option>
-            <option
-              value="serif"
-              {%
-              if
-              style.font=""
-              ="serif"
-              %}selected{%
-              endif
-              %}>
+            <option value="serif" {{ 'selected' if style.font == 'serif' else '' }}>
               Serif
             </option>
-            <option
-              value="monospace"
-              {%
-              if
-              style.font=""
-              ="monospace"
-              %}selected{%
-              endif
-              %}>
+            <option value="monospace" {{ 'selected' if style.font == 'monospace' else '' }}>
               Monospace
             </option>
           </select>
