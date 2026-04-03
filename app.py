@@ -20,11 +20,11 @@ MEMBER_EMAILS = [
 ]
 
 TEAM_MEMBERS = [
-    {"id": 1, "nama": "Nezzaluna Azzahra", "npm": "2406495741", "jurusan": "Ilmu Komputer", "angkatan": "2024"},
-    {"id": 2, "nama": "Hillary Elizabeth Clara Pasaribu", "npm": "2406407266", "jurusan": "Sistem Informasi", "angkatan": "2024"},
-    {"id": 3, "nama": "Cristian Dillon Philbert", "npm": "2406495956", "jurusan": "Sistem Informasi", "angkatan": "2024"},
-    {"id": 4, "nama": "Raihana Auni Zakia", "npm": "2406495760", "jurusan": "Ilmu Komputer", "angkatan": "2024"},
-    {"id": 5, "nama": "Vidia Qonita Ahmad", "npm": "2406345381", "jurusan": "Ilmu Komputer", "angkatan": "2024"}
+    {"id": 1, "nama": "Nezzaluna Azzahra", "npm": "2406495741", "jurusan": "Ilmu Komputer", "angkatan": "2024", "foto": "https://media.licdn.com/dms/image/v2/D5603AQGEvhdWtlK4Zg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1723943775447?e=1776902400&v=beta&t=t1mV623KAqTj97ZLndU7R2rZ9UNBnY0FJh5cCO61xH8"},
+    {"id": 2, "nama": "Hillary Elizabeth Clara Pasaribu", "npm": "2406407266", "jurusan": "Sistem Informasi", "angkatan": "2024", "foto": "https://media.licdn.com/dms/image/v2/D5603AQEHiDpqhf9zxw/profile-displayphoto-shrink_400_400/B56ZxmbYCvKkAg-/0/1771244980074?e=1776902400&v=beta&t=aSgsLJn4j68q7Yg4Whj2VMsfdAsomk6BwKgQFfugT6o"},
+    {"id": 3, "nama": "Cristian Dillon Philbert", "npm": "2406495956", "jurusan": "Sistem Informasi", "angkatan": "2024", "foto": "https://lh3.googleusercontent.com/d/1TBSyG-gij9eFnxA559AGe4xIwIA18qs4"},
+    {"id": 4, "nama": "Raihana Auni Zakia", "npm": "2406495760", "jurusan": "Ilmu Komputer", "angkatan": "2024", "foto": "https://media.licdn.com/dms/image/v2/D5603AQFeua4cK7xnXg/profile-displayphoto-scale_400_400/B56ZjWK6_hH8Ag-/0/1755939846437?e=1776902400&v=beta&t=TDNazc9HhZy_GnkyFXVy29m6QHUkEQFgqpneaxqn4oE"},
+    {"id": 5, "nama": "Vidia Qonita Ahmad", "npm": "2406345381", "jurusan": "Ilmu Komputer", "angkatan": "2024", "foto": "https://media.licdn.com/dms/image/v2/D5603AQGVYPyQu_jWiw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1724519039677?e=1776902400&v=beta&t=o9THHj0XXD25TteEUjXcTUOd8mWK-ofTRojvh93hfSM"}
 ]
 
 DISPLAY_STYLE = {
@@ -160,6 +160,7 @@ def edit_member(member_id):
         npm = request.form.get('npm', '').strip()
         jurusan = request.form.get('jurusan', '').strip()
         angkatan = request.form.get('angkatan', '').strip()
+        foto = request.form.get('foto', '').strip()
 
         if not npm.isdigit():
             error_message = "Input tidak valid. NPM harus berupa angka."
@@ -170,6 +171,7 @@ def edit_member(member_id):
             member['npm'] = npm
             member['jurusan'] = jurusan
             member['angkatan'] = angkatan
+            member['foto'] = foto
             return redirect(url_for('index'))
 
     return render_template('edit_member.html', member=member, error=error_message)

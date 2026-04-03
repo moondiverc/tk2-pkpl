@@ -99,6 +99,14 @@ button:hover {
   align-items: center;
 }
 
+.member-photo {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+}
+
 .notice {
   color: #9a1d1d;
   font-style: italic;

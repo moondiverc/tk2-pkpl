@@ -13,32 +13,70 @@
       <section class="form-card">
         <h1>Edit Data Anggota</h1>
         <p>ID Anggota: {{ member.id }}</p>
-        
+
         {% if error %}
-        <div style="background-color: #ffe5e5; color: #d63031; padding: 12px; border-radius: 8px; border: 1px solid #fab1a0; margin-bottom: 20px;">
+        <div
+          style="
+            background-color: #ffe5e5;
+            color: #d63031;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #fab1a0;
+            margin-bottom: 20px;
+          ">
           <strong>Peringatan:</strong> {{ error }}
         </div>
         {% endif %}
 
         <form method="POST">
           <label for="nama">Nama</label>
-          <input id="nama" name="nama" type="text" value="{{ member.nama }}" required />
+          <input
+            id="nama"
+            name="nama"
+            type="text"
+            value="{{ member.nama }}"
+            required />
 
           <label for="npm">NPM</label>
-          <input id="npm" name="npm" type="text" value="{{ member.npm }}" required />
+          <input
+            id="npm"
+            name="npm"
+            type="text"
+            value="{{ member.npm }}"
+            required />
 
           <label for="jurusan">Jurusan</label>
           <select id="jurusan" name="jurusan" required>
-            <option value="Sistem Informasi" {% if member.jurusan == 'Sistem Informasi' %}selected{% endif %}>Sistem Informasi</option>
-            <option value="Ilmu Komputer" {% if member.jurusan == 'Ilmu Komputer' %}selected{% endif %}>Ilmu Komputer</option>
+            <option
+              value="Sistem Informasi"
+              {{ 'selected' if 'Sistem Informasi' in [member.jurusan] else '' }}>
+              Sistem Informasi
+            </option>
+            <option
+              value="Ilmu Komputer"
+              {{ 'selected' if 'Ilmu Komputer' in [member.jurusan] else '' }}>
+              Ilmu Komputer
+            </option>
           </select>
 
           <label for="angkatan">Angkatan</label>
           <select id="angkatan" name="angkatan" required>
             {% for thn in ['2022', '2023', '2024', '2025'] %}
-            <option value="{{ thn }}" {% if member.angkatan == thn %}selected{% endif %}>{{ thn }}</option>
+            <option
+              value="{{ thn }}"
+              {{ 'selected' if thn in [member.angkatan] else '' }}>
+              {{ thn }}
+            </option>
             {% endfor %}
           </select>
+
+          <label for="foto">Link Foto</label>
+          <input
+            id="foto"
+            name="foto"
+            type="url"
+            value="{{ member.foto }}"
+            placeholder="https://example.com/photo.jpg" />
 
           <div class="actions">
             <button type="submit">Simpan</button>

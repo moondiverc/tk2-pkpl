@@ -47,6 +47,7 @@
               <th>NPM</th>
               <th>Jurusan</th>
               <th>Angkatan</th>
+              <th>Foto</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -58,6 +59,13 @@
               <td>{{ member['npm'] }}</td>
               <td>{{ member['jurusan'] }}</td>
               <td>{{ member['angkatan'] }}</td>
+              <td>
+                {% if member['foto'] %}
+                <img src="{{ member['foto'] }}" alt="Foto {{ member['nama'] }}" class="member-photo" />
+                {% else %}
+                <span class="muted">-</span>
+                {% endif %}
+              </td>
               <td>
                 {% if is_member %}
                 <a
@@ -72,7 +80,7 @@
             </tr>
             {% endfor %} {% else %}
             <tr>
-              <td colspan="6" class="muted">Data anggota belum tersedia.</td>
+              <td colspan="7" class="muted">Data anggota belum tersedia.</td>
             </tr>
             {% endif %}
           </tbody>
