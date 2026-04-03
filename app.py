@@ -24,7 +24,7 @@ TEAM_MEMBERS = [
     {"id": 2, "nama": "Hillary Elizabeth Clara Pasaribu", "npm": "2406407266", "jurusan": "Sistem Informasi", "angkatan": "2024", "foto": "https://media.licdn.com/dms/image/v2/D5603AQEHiDpqhf9zxw/profile-displayphoto-shrink_400_400/B56ZxmbYCvKkAg-/0/1771244980074?e=1776902400&v=beta&t=aSgsLJn4j68q7Yg4Whj2VMsfdAsomk6BwKgQFfugT6o"},
     {"id": 3, "nama": "Cristian Dillon Philbert", "npm": "2406495956", "jurusan": "Sistem Informasi", "angkatan": "2024", "foto": "https://lh3.googleusercontent.com/d/1TBSyG-gij9eFnxA559AGe4xIwIA18qs4"},
     {"id": 4, "nama": "Raihana Auni Zakia", "npm": "2406495760", "jurusan": "Ilmu Komputer", "angkatan": "2024", "foto": "https://media.licdn.com/dms/image/v2/D5603AQFeua4cK7xnXg/profile-displayphoto-scale_400_400/B56ZjWK6_hH8Ag-/0/1755939846437?e=1776902400&v=beta&t=TDNazc9HhZy_GnkyFXVy29m6QHUkEQFgqpneaxqn4oE"},
-    {"id": 5, "nama": "Vidia Qonita Ahmad", "npm": "2406345381", "jurusan": "Ilmu Komputer", "angkatan": "2024", "foto": "https://media.licdn.com/dms/image/v2/D5603AQGVYPyQu_jWiw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1724519039677?e=1776902400&v=beta&t=o9THHj0XXD25TteEUjXcTUOd8mWK-ofTRojvh93hfSM"}
+    {"id": 5, "nama": "Vidia Qonita Ahmad", "npm": "2406345381", "jurusan": "Ilmu Komputer", "angkatan": "2024", "foto": "https://media.licdn.com/dms/image/v2/D5603AQEXU1uuaXGVbQ/profile-displayphoto-crop_800_800/B56Z1TlYlDKEAI-/0/1775223805609?e=1776902400&v=beta&t=MpADci-M6RPRopU6GZEgJwPAu9CDgXxQ4tqUPuKX8zY"}
 ]
 
 DISPLAY_STYLE = {
